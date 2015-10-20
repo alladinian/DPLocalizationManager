@@ -56,8 +56,8 @@ NSString * const DPLanguagePreferenceKey = @"DPLanguageKey";
 
 - (void)loadTableNamedIfNeeded:(NSString *)tableName {
     if (tableName && self.tables[tableName] == nil && self.currentLanguage) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:tableName ofType:@"strings" inDirectory:nil forLocalization:self.currentLanguage];
-        path = path ? path : [[NSBundle mainBundle] pathForResource:tableName ofType:@"strings"];
+        NSString *dir = [self.currentLanguage isEqualToString:@"en"] ? @"Base.lproj" : nil;
+        NSString *path = [[NSBundle mainBundle] pathForResource:tableName ofType:@"strings" inDirectory:dir forLocalization:self.currentLanguage];
         NSDictionary *tableContent = path ? [NSDictionary dictionaryWithContentsOfFile:path] : nil;
         self.tables[tableName] = tableContent ? tableContent : @{};
     }
